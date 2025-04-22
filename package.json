@@ -1,0 +1,39 @@
+{
+  "name": "waktqgla-unqzxalie",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run build:tw && bun run dev:esb",
+    "build": "bun run build:tw && bun run build:esb",
+    "dev:tw": "tailwindcss -i public/styles/index.postcss -o public/styles/index.css --minify --watch",
+    "build:tw": "tailwindcss -i public/styles/index.postcss -o public/styles/index.css --minify",
+    "katex": "mkdir -p dist/fonts && cp -a node_modules/katex/dist/fonts/. dist/fonts; mkdir -p dist/styles && cp node_modules/katex/dist/katex.min.css dist/styles",
+    "dev:esb": "bun run katex && mkdir -p dist/styles && cp public/index.dev.html dist/index.html && cp -R public/icon dist && esbuild --servedir=dist --bundle --outdir=dist --watch=forever --minify --format=esm src/index.ts",
+    "build:esb": "bun run katex && mkdir -p dist/styles && cp -R public/{index.html,icon} dist && esbuild --outdir=dist --bundle --minify --format=esm src/index.ts"
+  },
+  "dependencies": {
+    "katex": "^0.16.22"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.4",
+    "@types/bun": "^1.2.10",
+    "esbuild": "^0.25.2",
+    "prettier": "3.5.3",
+    "prettier-plugin-jsdoc": "^1.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.1.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "prettier": {
+    "semi": false,
+    "plugins": [
+      "prettier-plugin-jsdoc"
+    ],
+    "experimentalTernaries": true,
+    "proseWrap": "always",
+    "quoteProps": "consistent"
+  }
+}
